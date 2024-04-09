@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 2px 2px 6px 0px  #ccc;
+}
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 20%;  
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 2px 2px 6px 0px  #ccc;
+}
+.card-large {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 50%; 
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 2px 2px 6px 0px  #ccc;
+}
+.title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.img-small {
+  width: 100px;  
+  height: auto;
+
+}
+.header {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 10px; /* Reducir el espacio de relleno */
+  border: 1px solid #888;
+  width: 40%; /* Reducir el ancho */
+}
+.modal-content {
+  display: flex;
+  justify-content: space-around;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="header">Panel de Control de Desembarque</div>
+
+<div class="container">
+  <div class="card">
+    <div class="title">Información del avión</div>
+    <img class="img-small" src="https://images.ecestaticos.com/EqAWsMpgfDABpsYw61CoJgUWHlM=/0x0:2121x1414/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F97b%2Fa3e%2Ffef%2F97ba3efef821b0f196815829728fa99f.jpg" alt="Imagen del avión">
+    <h1></h1>
+    Identificación del avión: N12345<br>
+    Modelo: Boeing 737-800<br>
+    Peso máximo: 174.700 kilos<br>
+    Alcance: 3.115 millas náuticas<br>
+    Velocidad: 850 km/hora<br>
+    Capacidad: 189 pasajeros<br>
+    Combustible: 6.875 galones<br>
+  </div>
+
+  <div class="card">
+    <div class="title">Información del Hangar</div>
+    <button id="myBtn">Seleccionar</button>
+    <h1></h1>
+    <img class="img-small" src="https://us.123rf.com/450wm/puruan/puruan1701/puruan170100389/70486444-icono-de-hangar-de-aviones-en-un-solo-color-estructura-del-edificio-de-reparaci%C3%B3n-de-mantenimiento.jpg" alt="Imagen del hangar">
+    <h1></h1>
+    Nombre del hangar : H101<br>
+    Estado : Disponible<br>
+    Avión : Boeing 737<br>
+    Estabilidad : Sísmica<br>
+    Ubicación : Sector Norte<br>
+    Tamaño : Sí<br>
+    Tipo : Hangar en voladizo<br>
+  </div>
+
+  <div class="card-large">
+    <div class="title">Mapeo de hangares</div>
+    <img class="img" src="https://media.istockphoto.com/id/1415231114/es/vector/vista-superior-de-la-terminal-del-aeropuerto-hangares-de-dibujos-animados-pista-aviones-de.jpg?s=612x612&w=0&k=20&c=_5aHdNYoQyi4nSuY2v1g3wVs8Oly0KIDCKc8gMF9gwM=" alt="Mapeo de hangares">
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      
+      <!-- Tarjeta de lista de hangares -->
+      <div class="card">
+        <div class="title">Lista de Hangares</div>
+        
+        <div class="hangar-list">
+          <div class="title">Vacios</div>
+          <!-- Repite este bloque para cada hangar vacío -->
+          <div class="hangar-item">
+
+            <button onclick="loadPlaneInfo('H102')">H102</button>
+          </div>
+          <!-- Fin del bloque -->
+        </div>
+        
+        <div class="hangar-list">
+          <div class="title">Ocupados</div>
+          <!-- Repite este bloque para cada hangar ocupado -->
+          <div class="hangar-item">
+
+            <button onclick="loadPlaneInfo('H101')">H101</button>
+          </div>
+          <!-- Fin del bloque -->
+        </div>
+        
+      </div>
+      <div id="planeInfo" class="card">
+        <!-- La información del avión se cargará aquí -->
+      </div>
+    </div>
+  
+  </div>
+  
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+function loadPlaneInfo(hangarId) {
+  // Aquí puedes cargar la información del avión basada en el ID del hangar
+  // Por ahora, solo mostraremos el ID del hangar
+  document.getElementById('planeInfo').innerHTML = '<div class="title">Información del Avión en ' + hangarId + '</div>';
+}
+</script>
+
+</body>
+</html>
