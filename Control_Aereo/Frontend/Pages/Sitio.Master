@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Sitio.master.cs" Inherits="Frontend.Pages.Sitio" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="css/Master.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="descripcion">
+            <div class="navbar">
+                <a href="ListaVuelos.aspx" class="logo">Horizont Watch Control</a>
+                <a href="Desembarque.aspx">Desembarque</a>
+                <a href="Hangares.aspx">Hangares</a>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-item">
+                <p>
+                    Es un aplicativo que realiza las operaciones de un
+            <br>
+                    controlador aéreo realizando múltiples acciones
+            <br>
+                    basadas en torres de control
+                </p>
+            </div>
+            <div class="footer-item">
+                <p class="derechos-texto">© 2024 - Todos los derechos reservados</p>
+            </div>
+        </footer>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
